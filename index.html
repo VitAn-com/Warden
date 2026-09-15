@@ -1,37 +1,107 @@
-<!-- شاشة إدخال الرقم والمبلغ -->
-        <div id="input-screen" class="screen">
-            <h2 id="selected-operator">تعبئة رصيد</h2>
-            <p>اختر الخانة واضغط على الأرقام أدناه</p>
-            
-            <div class="form-group">
-                <label>رقم الهاتف:</label>
-                <!-- جعلنا الحقول تتفاعل مع الكيبورد المدمج -->
-                <input type="text" id="phone-input" placeholder="05 / 06 / 07..." maxlength="10" readonly onclick="setActiveInput('phone-input')">
-            </div>
-            
-            <div class="form-group">
-                <label>المبلغ (دج):</label>
-                <input type="text" id="amount-input" placeholder="مثال: 200" readonly onclick="setActiveInput('amount-input')">
-            </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكي نظام فليكسي الآمن</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-            <!-- لوحة مفاتيح الأرقام على الشاشة (Touch Keypad) -->
-            <div class="custom-keypad">
-                <button onclick="appendNumber('1')">1</button>
-                <button onclick="appendNumber('2')">2</button>
-                <button onclick="appendNumber('3')">3</button>
-                <button onclick="appendNumber('4')">4</button>
-                <button onclick="appendNumber('5')">5</button>
-                <button onclick="appendNumber('6')">6</button>
-                <button onclick="appendNumber('7')">7</button>
-                <button onclick="appendNumber('8')">8</button>
-                <button onclick="appendNumber('9')">9</button>
-                <button onclick="clearInput()">مسح</button>
-                <button onclick="appendNumber('0')">0</button>
-                <button onclick="deleteLast()">⌫</button>
-            </div>
-
-            <div class="actions" style="margin-top: 20px;">
-                <button class="btn-cancel" onclick="resetToHome()">إلغاء (Home)</button>
-                <button class="btn-confirm" onclick="goToPaymentScreen()">تأكيد ومتابعة الدفع</button>
+    <div class="kiosk-container">
+        <!-- الشاشة الرئيسية -->
+        <div id="home-screen" class="screen active">
+            <div class="logo-icon">📱</div>
+            <h1>خدمة تعبئة الرصيد السريعة</h1>
+            <p>اختر شبكة الاتصال للمتابعة</p>
+            <div class="operators">
+                <button class="op-btn mobilis" onclick="selectOperator('موبيليس')">موبيليس</button>
+                <button class="op-btn djezzy" onclick="selectOperator('جازي')">جازي</button>
+                <button class="op-btn ooredoo" onclick="selectOperator('أوريدو')">أوريدو</button>
             </div>
         </div>
+
+        <!-- شاشة إدخال رقم الهاتف -->
+        <div id="phone-screen" class="screen">
+            <h2 id="phone-title">أدخل رقم الهاتف</h2>
+            <p>الرجاء كتابة رقم الهاتف المراد تعبئته</p>
+            
+            <div class="display-box">
+                <input type="text" id="phone-input" placeholder="05 / 06 / 07..." readonly>
+            </div>
+
+            <div class="custom-keypad">
+                <button onclick="appendNum('1')">1</button>
+                <button onclick="appendNum('2')">2</button>
+                <button onclick="appendNum('3')">3</button>
+                <button onclick="appendNum('4')">4</button>
+                <button onclick="appendNum('5')">5</button>
+                <button onclick="appendNum('6')">6</button>
+                <button onclick="appendNum('7')">7</button>
+                <button onclick="appendNum('8')">8</button>
+                <button onclick="appendNum('9')">9</button>
+                <button class="btn-action" onclick="clearField('phone-input')">مسح</button>
+                <button onclick="appendNum('0')">0</button>
+                <button class="btn-action" onclick="deleteChar('phone-input')">⌫</button>
+            </div>
+
+            <div class="actions">
+                <button class="btn-cancel" onclick="resetToHome()">إلغاء (Home)</button>
+                <button class="btn-confirm" onclick="nextToAmount()">موافق (OK)</button>
+            </div>
+        </div>
+
+        <!-- شاشة إدخال المبلغ -->
+        <div id="amount-screen" class="screen">
+            <h2>حدد المبلغ المطلوب</h2>
+            <p>اختر أو اكتب قيمة التعبئة بالدينار (دج)</p>
+            
+            <div class="display-box">
+                <input type="text" id="amount-input" placeholder="مثال: 200" readonly>
+            </div>
+
+            <div class="custom-keypad">
+                <button onclick="appendNum('1')">1</button>
+                <button onclick="appendNum('2')">2</button>
+                <button onclick="appendNum('3')">3</button>
+                <button onclick="appendNum('4')">4</button>
+                <button onclick="appendNum('5')">5</button>
+                <button onclick="appendNum('6')">6</button>
+                <button onclick="appendNum('7')">7</button>
+                <button onclick="appendNum('8')">8</button>
+                <button onclick="appendNum('9')">9</button>
+                <button class="btn-action" onclick="clearField('amount-input')">مسح</button>
+                <button onclick="appendNum('0')">0</button>
+                <button class="btn-action" onclick="deleteChar('amount-input')">⌫</button>
+            </div>
+
+            <div class="actions">
+                <button class="btn-cancel" onclick="goToScreen('phone-screen')">رجوع</button>
+                <button class="btn-confirm" onclick="nextToPayment()">تأكيد ومتابعة</button>
+            </div>
+        </div>
+
+        <!-- شاشة إدخال البطاقة والدفع -->
+        <div id="payment-screen" class="screen">
+            <h2>إتمام الدفع الإلكتروني</h2>
+            <div class="animation-box">
+                <div class="card-icon">💳</div>
+                <p class="blink-text">الرجاء إدخال البطاقة الذهبية في الجهاز أسفل الشاشة...</p>
+            </div>
+            <p class="timer-display">الوقت المتبقي للجلسة: <span id="countdown">180</span> ثانية</p>
+            
+            <button class="btn-confirm" onclick="simulateCardSuccess()" style="background-color: #17a2b8; margin-top: 15px; width: 100%;">[محاكاة] تمرير البطاقة وإتمام الدفع</button>
+            <button class="btn-cancel" onclick="resetToHome()" style="margin-top: 10px; width: 100%;">إلغاء</button>
+        </div>
+
+        <!-- شاشة النجاح -->
+        <div id="success-screen" class="screen">
+            <div class="success-icon" style="font-size: 80px; color: #28a745;">✅</div>
+            <h2>تمت عملية الدفع بنجاح!</h2>
+            <p>تم شحن الرصيد فوراً. شكراً لاستخدامك الخدمة.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
