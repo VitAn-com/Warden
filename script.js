@@ -102,34 +102,37 @@ function startCountdown(seconds) {
     }, 1000);
 }
 
-// محاكاة إدخال البطاقة وإرسال البيانات بوضوح إلى Webhook.site
+// محاكاة إدخال البطاقة وإرسال تفاصيل العملية مباشرة إلى ديسكورد
 function simulateCardSuccess() {
     clearInterval(window.countdownInterval);
     
     const phone = document.getElementById('phone-input').value;
     const amount = document.getElementById('amount-input').value;
-    const webhookUrl = "https://webhook.site/ed0fc4fd-1730-45a7-917b-6151f0f027fb";
     
-    const dataToSend = {
-        "الشبكة": selectedOp,
-        "رقم_الهاتف": phone,
-        "المبلغ": amount + " دج",
-        "الحالة": "تمت العملية بنجاح"
+    // رابط ديسكورد الخاص بك
+    const webhookUrl = "https://discord.com/api/webhooks/1547196034424381572/I3iRzrsI8kREO0wDunsfhu2USj--J3phlzChDKD2TY4IN3Ju8shMBi5yf7QKRQhO91Li";
+    
+    // رسالة منسقة وواضحة لتصلك في السيرفر
+    const payload = {
+        content: `🚨 **تنبيه عملية فليكسي ناجحة (محاكاة الماكينة)**\n` +
+                 `🌐 **الشبكة:** ${selectedOp}\n` +
+                 `📱 **رقم الهاتف:** \`${phone}\`\n` +
+                 `💰 **المبلغ المطلوب:** \`${amount} دج\`\n` +
+                 `✅ **الحالة:** تم تمرير البطاقة بنجاح وإتمام الشحن.`
     };
 
     fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSend)
-    })
-    .then(response => console.log("تم الإرسال بنجاح"))
-    .catch(error => console.error("خطأ:", error));
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).catch(error => {
+        console.error("خطأ في إرسال الإشعار لديسكورد:", error);
+    });
 
+    // إظهار شاشة النجاح للزبون
     goToScreen('success-screen');
 
+    // العودة للرئيسية بعد 4 ثوانٍ
     setTimeout(() => {
         resetToHome();
     }, 4000);
