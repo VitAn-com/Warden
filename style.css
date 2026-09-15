@@ -1,107 +1,28 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #1e1e2f;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    user-select: none;
+.custom-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 300px;
+    margin: 20px auto;
 }
 
-.kiosk-container {
-    width: 90%;
-    max-width: 700px;
-    background: #2b2b40;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    text-align: center;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
-}
-
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 5px;
-    transition: 0.2s;
-}
-
-.operators button {
-    background-color: #4a4ae2;
+.custom-keypad button {
+    background-color: #3b3b54;
     color: white;
-    width: 30%;
-}
-
-.operators button:hover {
-    background-color: #3b3bc4;
-}
-
-.form-group {
-    margin: 20px 0;
-    text-align: right;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-}
-
-.form-group input {
-    width: 100%;
+    font-size: 22px;
     padding: 15px;
-    font-size: 18px;
+    margin: 0;
     border-radius: 8px;
+    cursor: pointer;
     border: 1px solid #555;
-    background: #1e1e2f;
-    color: white;
-    box-sizing: border-box;
+    transition: 0.1s;
 }
 
-.btn-confirm {
-    background-color: #28a745;
-    color: white;
+.custom-keypad button:active {
+    background-color: #52527a;
 }
 
-.btn-cancel {
-    background-color: #dc3545;
-    color: white;
-}
-
-.blink-text {
-    font-size: 20px;
-    color: #ffc107;
-    animation: blink 1.5s infinite;
-    margin: 20px 0;
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.3; }
-    100% { opacity: 1; }
-}
-
-.card-icon {
-    font-size: 60px;
-    margin-bottom: 5px;
-}
-
-.timer-display {
-    color: #aaa;
-    font-size: 14px;
-    margin-top: 10px;
+/* تمييز الخانة النشطة حالياً */
+input.active-field {
+    border: 2px solid #ffc107 !important;
 }
