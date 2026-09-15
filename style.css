@@ -1,28 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    user-select: none;
+}
+
+.kiosk-container {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(35, 35, 54, 0.95);
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logo-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+    color: #f1f1f1;
+}
+
+p {
+    color: #aaa;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.op-btn {
+    padding: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+}
+
+.op-btn.mobilis { background-color: #0073e6; }
+.op-btn.djezzy { background-color: #cc0000; }
+.op-btn.ooredoo { background-color: #ff6600; }
+
+.op-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.display-box input {
+    width: 100%;
+    padding: 15px;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid #4a4ae2;
+    background: #1a1a2e;
+    color: #fff;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+}
+
 .custom-keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    max-width: 300px;
-    margin: 20px auto;
+    gap: 12px;
+    margin: 20px 0;
 }
 
 .custom-keypad button {
-    background-color: #3b3b54;
+    background-color: #2e2e48;
     color: white;
     font-size: 22px;
-    padding: 15px;
-    margin: 0;
-    border-radius: 8px;
+    padding: 16px;
+    border-radius: 12px;
     cursor: pointer;
-    border: 1px solid #555;
+    border: 1px solid rgba(255,255,255,0.05);
     transition: 0.1s;
 }
 
 .custom-keypad button:active {
-    background-color: #52527a;
+    background-color: #4a4ae2;
+    transform: scale(0.95);
 }
 
-/* تمييز الخانة النشطة حالياً */
-input.active-field {
-    border: 2px solid #ffc107 !important;
+.custom-keypad button.btn-action {
+    background-color: #442b35;
+    color: #ff6b6b;
+    font-size: 18px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button.btn-confirm, button.btn-cancel {
+    flex: 1;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-confirm { background-color: #28a745; color: white; }
+.btn-cancel { background-color: #dc3545; color: white; }
+
+.btn-confirm:hover, .btn-cancel:hover {
+    opacity: 0.9;
+}
+
+.blink-text {
+    font-size: 18px;
+    color: #ffc107;
+    animation: blink 1.5s infinite;
+    margin: 20px 0;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.card-icon {
+    font-size: 60px;
+    margin-bottom: 5px;
+}
+
+.timer-display {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 10px;
 }
