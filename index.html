@@ -1,68 +1,37 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محاكي نظام فليكسي الآمن</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <div class="kiosk-container">
-        <!-- الشاشة الرئيسية -->
-        <div id="home-screen" class="screen active">
-            <h1>خدمة تعبئة الرصيد السريعة</h1>
-            <p>اختر شبكة الاتصال للمتابعة</p>
-            <div class="operators">
-                <button onclick="goToScreen('input-screen', 'Mobilis')">موبيليس</button>
-                <button onclick="goToScreen('input-screen', 'Djezzy')">جازي</button>
-                <button onclick="goToScreen('input-screen', 'Ooredoo')">أوريدو</button>
-            </div>
-        </div>
-
-        <!-- شاشة إدخال الرقم والمبلغ -->
+<!-- شاشة إدخال الرقم والمبلغ -->
         <div id="input-screen" class="screen">
             <h2 id="selected-operator">تعبئة رصيد</h2>
-            <p>الرجاء إدخال رقم الهاتف والمبلغ المطلوب</p>
+            <p>اختر الخانة واضغط على الأرقام أدناه</p>
             
             <div class="form-group">
                 <label>رقم الهاتف:</label>
-                <input type="text" id="phone-input" placeholder="05 / 06 / 07..." maxlength="10">
+                <!-- جعلنا الحقول تتفاعل مع الكيبورد المدمج -->
+                <input type="text" id="phone-input" placeholder="05 / 06 / 07..." maxlength="10" readonly onclick="setActiveInput('phone-input')">
             </div>
             
             <div class="form-group">
                 <label>المبلغ (دج):</label>
-                <input type="number" id="amount-input" placeholder="مثال: 200">
+                <input type="text" id="amount-input" placeholder="مثال: 200" readonly onclick="setActiveInput('amount-input')">
             </div>
 
-            <div class="actions">
+            <!-- لوحة مفاتيح الأرقام على الشاشة (Touch Keypad) -->
+            <div class="custom-keypad">
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button onclick="clearInput()">مسح</button>
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="deleteLast()">⌫</button>
+            </div>
+
+            <div class="actions" style="margin-top: 20px;">
                 <button class="btn-cancel" onclick="resetToHome()">إلغاء (Home)</button>
                 <button class="btn-confirm" onclick="goToPaymentScreen()">تأكيد ومتابعة الدفع</button>
             </div>
         </div>
-
-        <!-- شاشة إرشادات إدخال البطاقة والتعليمات المتحركة -->
-        <div id="payment-screen" class="screen">
-            <h2>إتمام الدفع الإلكتروني</h2>
-            <div class="animation-box">
-                <div class="card-icon">💳</div>
-                <p class="blink-text">الرجاء إدخال البطاقة الذهبية في الجهاز أسفل الشاشة...</p>
-            </div>
-            <p class="timer-display">الوقت المتبقي للجلسة: <span id="countdown">180</span> ثانية</p>
-            
-            <!-- زر المحاكاة الذي يرسل لديسكورد ويظهر التأكيد -->
-            <button class="btn-confirm" onclick="simulateCardSuccess()" style="background-color: #17a2b8; margin-top: 15px; width: 100%;">[محاكاة] تمرير البطاقة وإتمام الدفع</button>
-            <button class="btn-cancel" onclick="resetToHome()" style="margin-top: 10px; width: 100%;">إلغاء</button>
-        </div>
-
-        <!-- شاشة نجاح العملية -->
-        <div id="success-screen" class="screen">
-            <div class="success-icon" style="font-size: 80px; color: #28a745;">✅</div>
-            <h2>تمت عملية الدفع بنجاح!</h2>
-            <p>تم شحن الرصيد فوراً. شكراً لاستخدامك الخدمة.</p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
